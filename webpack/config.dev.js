@@ -51,10 +51,15 @@ module.exports = {
             "typeof PLUGIN_3D": JSON.stringify(false),
             "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
             "typeof PLUGIN_FBINSTANT": JSON.stringify(false),
-            "typeof FEATURE_SOUND": JSON.stringify(true)
+            "typeof FEATURE_SOUND": JSON.stringify(true),
+            'process.env': JSON.stringify({
+                production: false,
+                wsUrl: 'ws://localhost:8081',
+                authUrl: 'http://localhost:8080/api/auth'
+            })
         }),
         new HtmlWebpackPlugin({
             template: "./index.html"
-        })
+        }),
     ]
 };

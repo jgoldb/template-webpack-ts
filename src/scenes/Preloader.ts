@@ -1,7 +1,12 @@
 import { Scene } from 'phaser';
+import {initializeApp} from "firebase/app";
+import firebaseConfig from "../../firebase/firebase.config";
+import {getAnalytics} from "firebase/analytics";
+import {getAuth, Auth} from "firebase/auth";
 
 export class Preloader extends Scene
 {
+    auth: Auth;
     constructor ()
     {
         super('Preloader');
@@ -25,6 +30,10 @@ export class Preloader extends Scene
             bar.width = 4 + (460 * progress);
 
         });
+
+        const app = initializeApp(firebaseConfig);
+        getAnalytics(app);
+        this.auth = getAuth(app);
     }
 
     preload ()
@@ -41,6 +50,9 @@ export class Preloader extends Scene
         //  For example, you can define global animations here, so we can use them in other scenes.
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.scene.start('MainMenu');
+        this.auth.authStateReady().then(() => {
+            const nextScene = this.auth.currentUser ? 'Game' : 'MainMenu';
+            this.scene.start(nextScene);
+        });
     }
 }

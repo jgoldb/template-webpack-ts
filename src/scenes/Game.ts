@@ -1,4 +1,6 @@
 import { Scene } from 'phaser';
+import {getApp} from 'firebase/app';
+import {getAuth} from "firebase/auth";
 
 export class Game extends Scene
 {
@@ -28,7 +30,11 @@ export class Game extends Scene
 
         this.input.once('pointerdown', () => {
 
-            this.scene.start('GameOver');
+            const app = getApp();
+            const auth = getAuth(app);
+            auth.signOut().then(() => this.scene.start('MainMenu'));
+
+            // this.scene.start('GameOver');
 
         });
     }

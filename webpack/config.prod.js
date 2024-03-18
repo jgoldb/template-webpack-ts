@@ -70,7 +70,12 @@ module.exports = {
             "typeof PLUGIN_3D": JSON.stringify(false),
             "typeof PLUGIN_CAMERA3D": JSON.stringify(false),
             "typeof PLUGIN_FBINSTANT": JSON.stringify(false),
-            "typeof FEATURE_SOUND": JSON.stringify(true)
+            "typeof FEATURE_SOUND": JSON.stringify(true),
+            'process.env': JSON.stringify({
+                production: true,
+                wsUrl: 'wss://yourdomain.com/ws',
+                authUrl: 'https://yourdomain.com/api/auth'
+            })
         }),
         new HtmlWebpackPlugin({
             template: "./index.html"
